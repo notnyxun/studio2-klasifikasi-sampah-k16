@@ -31,25 +31,28 @@ Deep Learning (IF25-40401) · Teknik Informatika ITERA · Semester Ganjil 2026/2
 | Putaran | Commit | Macro-F1 (split validasi lokal) | Macro-F1 (diumumkan asisten) |
 |---|---|---:|---:|
 | Preview 1 (14 Okt) | f33515f | 0.9255 | — |
-| Preview 2 (21 Okt) | — | 0.9929 | — |
+| Preview 2 (21 Okt) | — | 0.9551 | — |
 | Final (25 Okt) | — | — | — |
 
-**Catatan:** Macro-F1 Preview 2 sebesar **0.9929** dan akurasi **0.9927** diperoleh dari evaluasi lokal pada 410 gambar split validasi (15% stratified split dari dataset train dengan seed 42). Nilai pada kolom Macro-F1 yang diumumkan asisten diisi setelah hasil resmi tersedia. Nilai validasi lokal bukan skor final kompetisi.
+**Catatan:** Macro-F1 Preview 2 sebesar **0.9551**, akurasi **0.9541**, dan Weighted-F1 **0.9540** diperoleh pada epoch terbaik ke-11 dari evaluasi lokal pada 414 gambar validasi. Nilai pada kolom Macro-F1 yang diumumkan asisten diisi setelah hasil resmi tersedia. Nilai validasi lokal bukan skor final kompetisi.
 
-### F1-Score per Kelas
+### Classification Report (Preview 2 - EfficientNet-B0)
 
-| Kelas | F1-Score (Preview 1 - ResNet18) | F1-Score (Preview 2 - EfficientNet-B0) |
-|---|---:|---:|
-| `botol_plastik` | 0.9474 | 1.0000 |
-| `gelas_plastik` | 0.9620 | 0.9935 |
-| `kertas_kardus` | 0.8462 | 0.9908 |
-| `saset_kemasan` | 0.9307 | 0.9950 |
-| `styrofoam` | 0.9412 | 0.9851 |
+| Kelas | Precision | Recall | F1-Score | Support |
+|---|---:|---:|---:|---:|
+| `botol_plastik` | 0.94 | 0.97 | 0.96 | 79 |
+| `gelas_plastik` | 0.95 | 0.96 | 0.96 | 78 |
+| `kertas_kardus` | 0.95 | 0.98 | 0.96 | 55 |
+| `saset_kemasan` | 0.99 | 0.91 | 0.95 | 101 |
+| `styrofoam` | 0.94 | 0.96 | 0.95 | 101 |
+| **Accuracy** | | | **0.95** (0.9541) | 414 |
+| **Macro Avg** | **0.95** | **0.96** | **0.96** (0.9551) | 414 |
+| **Weighted Avg** | **0.95** | **0.95** | **0.95** (0.9540) | 414 |
 
 ### Catatan Eksperimen
 
 - **Preview 1:** Model baseline ResNet-18 pretrained dilatih selama 8 epoch. Akurasi validasi lokal tercatat 0.9317 dan Macro-F1 sebesar 0.9255. Kelas `kertas_kardus` memiliki F1-Score terendah (0.8462) dan menjadi kandidat utama perbaikan.
-- **Preview 2:** Eksperimen beralih ke arsitektur **EfficientNet-B0**. Model ini memberikan representasi fitur yang jauh lebih baik dengan jumlah parameter yang efisien. Evaluasi lokal menunjukkan peningkatan signifikan di semua kelas: Macro-F1 naik ke **0.9929** dan akurasi mencapai **0.9927**. Kelas `kertas_kardus` melonjak ke F1 0.9908. Bobot terbaik disimpan pada `submission/model.pth`.
+- **Preview 2:** Eksperimen beralih ke arsitektur **EfficientNet-B0** yang dilatih hingga epoch 11. Model menghasilkan performa yang lebih seimbang dan meningkat di seluruh kelas: Macro-F1 naik menjadi **0.9551**, akurasi **0.9541**, dan Weighted-F1 **0.9540**. Kelas `kertas_kardus` mengalami peningkatan signifikan dari F1 0.8462 menjadi 0.96. Bobot terbaik disimpan pada `submission/model.pth`.
 
 ## Cara Reproduksi
 
