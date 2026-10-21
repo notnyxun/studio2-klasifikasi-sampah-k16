@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+my_val/
+my_train/
+evaluation.json

@@ -1,12 +1,8 @@
-"""Contoh submission: ResNet-18 dengan head 5 kelas.
+"""Submission Preview 2: EfficientNet-B0 dengan classifier head 5 kelas.
 
-Ganti isi file ini dengan arsitektur kelompok Anda. Aturan:
-  - get_model() hanya MEMBANGUN arsitektur (jangan mengunduh bobot pretrained di sini,
-    jangan memuat model.pth di sini — evaluate.py yang memuatnya).
-  - get_transform() harus SAMA dengan transform validasi saat Anda melatih model.
-  - Output model: logits [batch, 5], urutan kelas:
-      0 botol_plastik, 1 gelas_plastik, 2 kertas_kardus, 3 saset_kemasan, 4 styrofoam
-    (urutan alfabetis — sama dengan torchvision.datasets.ImageFolder).
+Arsitektur model menggunakan EfficientNet-B0 dari torchvision.
+Output model: logits [batch, 5], urutan kelas (alfabetis):
+  0: botol_plastik, 1: gelas_plastik, 2: kertas_kardus, 3: saset_kemasan, 4: styrofoam
 """
 import torch.nn as nn
 from torchvision import models, transforms
@@ -14,9 +10,10 @@ from torchvision import models, transforms
 NUM_CLASSES = 5
 
 
-def get_model():
-    model = models.resnet18(weights=None)
-    model.fc = nn.Linear(model.fc.in_features, NUM_CLASSES)
+def get_model(num_classes=NUM_CLASSES):
+    model = models.efficientnet_b0(weights=None)
+    in_features = model.classifier[1].in_features
+    model.classifier[1] = nn.Linear(in_features, num_classes)
     return model
 
 
